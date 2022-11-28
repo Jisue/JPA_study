@@ -1,6 +1,7 @@
 package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,12 +10,13 @@ import java.util.List;
 
 // 스프링 부트가 Component 스캔해서 스프링빈으로 자동 등록
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
 
     // JPA 표준 어노테이션
     // JPA EntityManager를 등록해줌
-    @PersistenceContext
-    private EntityManager em;
+//    @PersistenceContext
+    private final EntityManager em;
 
     public void save(Member member) {
         // 저장
