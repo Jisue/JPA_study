@@ -7,6 +7,7 @@ import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,6 +40,16 @@ public class OrderSimpleApiController {
     @GetMapping("/api/v2/simple-orders")
     public List<SimpleOrderDTO> ordersV2() {
         List<Order> orders = orderRepository.findAllByCriteria(new OrderSearch());
+        List<SimpleOrderDTO> result = orders.stream()
+                .map(o -> new SimpleOrderDTO(o))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDTO> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
         List<SimpleOrderDTO> result = orders.stream()
                 .map(o -> new SimpleOrderDTO(o))
                 .collect(Collectors.toList());
