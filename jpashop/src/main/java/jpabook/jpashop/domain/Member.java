@@ -26,6 +26,7 @@ public class Member {
 
     // 1:다 관계
     // 매핑된 거울일 뿐이라고 명시
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 }
